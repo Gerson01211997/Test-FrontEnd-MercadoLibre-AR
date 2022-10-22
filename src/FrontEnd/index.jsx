@@ -22,14 +22,14 @@ import NavBar from './Components/utils/NavBar'
 import Home from './Components/Home/Home'
 import ProductSearch from './Components/SearchPage/SearchPage'
 import ProductDetail from './Components/ProductDetail'
-
+import NoPage from './Components/utils/404/404'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
       <Router>
-      <NavBar />
+      <NavBar/>
       <Container maxWidth='lg' sx={{paddingBottom:10}}> 
             <Routes>
               <Route path="/items/:id" exact element={<ProductDetail/>} />
@@ -38,8 +38,7 @@ root.render(
                 <Route path="/" exact element={<Home />}/>
                 <Route path="/:id" exact element={<ProductDetail />}/>
               </Route> 
-              {/*<Route path="/not-found" component={NotFound} /> */}
-              {/* <Route component={NoPage} /> */}
+              <Route component={NoPage} />
             </Routes>
       </Container>
       </Router>

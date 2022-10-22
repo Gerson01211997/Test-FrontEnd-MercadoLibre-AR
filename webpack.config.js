@@ -2,6 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CompressionPlugin = require("compression-webpack-plugin");
 const devMode = process.env.NODE_ENV !== "production";
 const outputDirectory = './src/Backend/dist';
 
@@ -56,7 +57,14 @@ module.exports = {
   }),
     new HtmlWebpackPlugin({
       template: './public/index.html',
-      favicon: './public/favicon.ico'
-    })
+      favicon: './public/favicon-32x32.png'
+    }),
+    new CompressionPlugin({
+      filename: '[path].gz[query]',
+      algorithm: 'gzip',
+      test: /\.js$|\.jsx$|\.scss$|\.css$|\.html$|\.eot?.+$|\.ttf?.+$|\.woff?.+$|\.svg?.+$/,
+      threshold: 10240,
+      minRatio: 0.8
+    }),
   ]
 };

@@ -1,10 +1,17 @@
 const express = require('express');
+const compression = require('compression');
 const path = require('path');
 const itemsRoute = require('./api/items');
 
 const PORT = 4000;
 const app = express();
+app.use(compression());
 
+app.get('*.gz', function(req, res, next) {
+  res.set('Content-Encoding', 'gzip');
+  res.set('Content-Type', 'text/javascript');
+  next();
+});
 app.use(express.static(path.join(__dirname, 'dist')));
 app.use('/api/items', itemsRoute);
 app.get('/*', (req, res) => { res.sendFile(path.join(__dirname, 

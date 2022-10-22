@@ -25,20 +25,19 @@ const apiCall = (req, res, next) => {
       next();
     });
   } else if (req.params && req.params.id) {
-    const productPromise = services.getProductById(req.params.id);
-    const productDescriptionPromise = services.getProductDescriptionById(req.params.id);
+    const getProducts = services.getProductById(req.params.id);
+    const getProductDescription = services.getProductDescriptionById(req.params.id);
 
-    Promise.all([productPromise, productDescriptionPromise]).then(
+    Promise.allSettled([getProducts, getProductDescription]).then(
       (result) => {
-        const categoryId = result[0].data.category_id;
+        const categoryId = result[0].value.data.category_id;
         services.getProductCategoryById(categoryId).then(
-          (categories) => {
-
+          (resultCat) => {
             res.data = Object.assign(
               {},
-              result[0].data,
-              result[1].data,
-              { categories: categories && categories.data.path_from_root }
+              result[0].value.data,
+              result[1].value.data,
+              { categories: resultCat && resultCat.data.path_from_root }
             );
 
             next();
@@ -54,8 +53,10 @@ const responseMiddleware = (req, res, next) => {
     author: res.author,
   };
   if (req.query && req.query.q) {
+
     dataResponse['items'] = res.data.results;
     dataResponse['categories'] = getCategoriesForSearch({data: res.data.filters});
+
   } else if (req.params && req.params.id) {
 
     dataResponse['item'] = {

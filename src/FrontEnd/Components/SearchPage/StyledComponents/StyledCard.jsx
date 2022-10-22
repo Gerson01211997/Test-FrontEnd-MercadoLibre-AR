@@ -13,7 +13,8 @@ const StyledCard = styled(ButtonBase)(() => ({
             maxWidth: '100%',
             height: 'auto',
             padding: 0,
-            margin: 0
+            margin: 0,
+            borderRadius:4
         }
     },
     '.containerInfo':{
@@ -21,6 +22,11 @@ const StyledCard = styled(ButtonBase)(() => ({
         display:'flex',
         flexDirection:'column',
         position:'relative',
+        img:{
+            marginLeft:5,
+            width:18,
+            height:18
+        },
         '.provincia':{
             marginRight: 40
         }

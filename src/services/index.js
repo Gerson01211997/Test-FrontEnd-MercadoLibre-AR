@@ -37,9 +37,7 @@ const getProductDescriptionById = async (productId) => {
   
 };
 
-const getProductCategoryById = async (productId) =>
-{
-
+const getProductCategoryById = async (productId) => {
   try {
     const response = await axios.get(
       `https://api.mercadolibre.com/categories/${productId}`
