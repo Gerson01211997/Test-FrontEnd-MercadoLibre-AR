@@ -12,9 +12,13 @@ import { useAppSelector } from '../../lib/Hooks/redux';
 import { selectSearch } from '../../lib/Redux/feature/searchReducer';
 
 const SearchPage = () => {
+    //Llamo siempre desde redux el dato a buscar y mantener el estado global de la busqueda
     const dataSearch = useAppSelector(selectSearch)
     const [itemsSearch, setItemsSearch] = useState([])
     useEffect(()=>{
+        // Siempre que se haga una llamada al useEffect, se vaciará el estado a su "estado" 
+        // inicial y así poder crear un loader o indicar que no se encontró una busqueda
+
         const getProduct = async () => {
             setItemsSearch(await getSearch({queryData:dataSearch}))
         }

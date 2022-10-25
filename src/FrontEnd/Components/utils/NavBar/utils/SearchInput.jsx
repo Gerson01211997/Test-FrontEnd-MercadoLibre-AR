@@ -15,6 +15,9 @@ const SearchInput = () =>{
     const [valueSearch, setValueSearch] = useState('')
     let params = searchParams.get('search')
     useEffect(()=>{
+        //Aquí siempre estoy a la escucha de la url para dejar la búsqueda guardada dentro del 
+        // cajón de búsqueda aunque el usuario regrese o refresque la página;
+        // También lo almaceno en redux para tener un estado general
         setValueSearch(params == null ? '' : params)
         dispatch(setDataSearch({search:params}))
     },[params])

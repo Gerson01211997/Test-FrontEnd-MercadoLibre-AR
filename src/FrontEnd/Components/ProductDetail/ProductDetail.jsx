@@ -9,8 +9,10 @@ import DescriptionComponent from './commons/descriptionComponent/descriptionComp
 import Loader from '../utils/Loader/Loader'
 import Breadcrumbs from '../utils/Breadcrumb/Breadcrumb';
 const ProductDetail = () =>{
+    //Con params siempre está a la escucha de cambios en la url y saber si debe buscar o no (activando el useEffect)
     const params = useParams();
     const [dataProduct, setDataProduct] = useState([])
+    //Determino primero la longitud de la respuesta pero con ésta no contiene la propiedad lenght, la convierto para así saber si tiene algo o no
     let Loading = Object.keys(dataProduct).length
     useEffect(()=>{
         const getProduct = async () => {

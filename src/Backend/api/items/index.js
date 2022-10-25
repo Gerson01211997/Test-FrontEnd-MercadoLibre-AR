@@ -19,14 +19,22 @@ const getProductCondition = ({data}) =>{
 }
 
 const apiCall = (req, res, next) => {
+  
+  //Aquí "escucho" y determino si en la ruta me viene un query para 
+  // buscar o el parámetro para renderizar un producto (id)
+
   if (req.query && req.query.q) {
     services.getProductsInSearch(req.query.q).then((result) => {
       res.data = result.data;
       next();
     });
   } else if (req.params && req.params.id) {
+
     const getProducts = services.getProductById(req.params.id);
     const getProductDescription = services.getProductDescriptionById(req.params.id);
+
+    //Uso AllSettled porque si una promesa no responde, puede seguir a la siguiente 
+    // y enviar ciertas respuestas y trabajar con eso para que la app no se rompa
 
     Promise.allSettled([getProducts, getProductDescription]).then(
       (result) => {
@@ -49,9 +57,13 @@ const apiCall = (req, res, next) => {
 };
 
 const responseMiddleware = (req, res, next) => {
-  const dataResponse = {
+
+  let dataResponse = {
     author: res.author,
   };
+
+  //Aquí armo toda la información dependiendo de la anterior respuesta
+
   if (req.query && req.query.q) {
 
     dataResponse['items'] = res.data.results;
@@ -73,8 +85,7 @@ const responseMiddleware = (req, res, next) => {
       sold_quantity: res.data.sold_quantity,
       description: res.data.plain_text,
     };
-
-
+    
     dataResponse.categories = res.data.categories;
   }
 
