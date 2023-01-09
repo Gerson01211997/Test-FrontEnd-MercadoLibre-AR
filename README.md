@@ -16,6 +16,7 @@
 
 #Encarpetado
 
+```
 ├───public/
 │   ├───favicon-16x16.png
 │   ├───favicon-32x32.png
@@ -126,6 +127,6 @@
 ├───README.md
 ├───webpack.config.js
 └───yarn.lock
-
+```
 
 ## El proyecto indicaba trabajar con SASS/SCSS, realicé la instalación pero seguí trabajando con StyleComponents por tema de rendimiento y comodidad
